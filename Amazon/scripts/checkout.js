@@ -1,4 +1,4 @@
-import { cart,removeFromCart,calculateCartQuantity } from "../data/cart.js";
+import { cart,removeFromCart,calculateCartQuantity,updateQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
@@ -39,7 +39,7 @@ cart.forEach((cartItem) => {
         </div>
         <div class="product-quantity js-product-quantity-${matchingProduct.id}">
           <span>
-            Quantity: <span class="quantity-label quantity-disappear">${cartItem.quantity}</span>
+            Quantity: <span class="quantity-label quantity-disappear js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
           </span>
           <span class="update-quantity-link link-primary js-update-link js-update-disappear" data-product-id="${matchingProduct.id}">
             Update
@@ -121,16 +121,18 @@ document.querySelectorAll('.js-update-link').forEach((link) => {
   });
 });
 document.querySelectorAll('.js-save-quantity-link').forEach((save) => {
-  save.addEventListener('click',() => {
-    console.log('ok');
+  save.addEventListener('click',() => { 
     const productId = save.dataset.productId;
     const container = document.querySelector(`.js-product-quantity-${productId}`);
     container.classList.remove('is-editing-quantity');
 
     const inputElement = document.querySelector(`.js-quantity-input-${productId}`);
-    console.log(Number(inputElement.value));
+    if(Number(inputElement.value) <= 0 || Number(inputElement.value) >= 1000) return; 
+    updateQuantity(productId,Number(inputElement.value));
+    updateCartQuantity();
 
-    inputElement.value = '';
+    const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+    quantityLabel.innerHTML = Number(inputElement.value);
   });
 })
 
@@ -138,5 +140,5 @@ document.querySelectorAll('.js-save-quantity-link').forEach((save) => {
 function updateCartQuantity () {
   let quantity = calculateCartQuantity();
 
-  document.querySelector('.js-checkout-header-middle-section').innerHTML = `${quantity} items`;
+  document.querySelector('.js-checkout-header-middle-section').innerHTML = `Checkout(${quantity} items)`;
 }
