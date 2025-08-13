@@ -115,8 +115,7 @@ export function renderOrderSummary() {
       removeFromCart(productId);
       updateCartQuantity();
 
-      const container = document.querySelector(`.js-cart-item-container-${productId}`);
-      container.remove();
+      renderOrderSummary();
       renderPaymentSummary();
     });
   });
@@ -182,5 +181,5 @@ export function renderOrderSummary() {
 function updateCartQuantity () {
   let quantity = calculateCartQuantity();
 
-  document.querySelector('.js-checkout-header-middle-section').innerHTML = `Checkout(${quantity} items)`;
+  document.querySelector('.js-checkout-header-middle-section').innerHTML = `Checkout (<a class="return-to-home-link" href="amazon.html">${quantity} items</a>)`;
 }
