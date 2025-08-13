@@ -5,11 +5,12 @@ import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 
 export function renderOrderSummary() {
 
-  updateCartQuantity();
+  renderCheckoutHeader();
 
   let cartSummaryHTML = '';
 
@@ -113,8 +114,8 @@ export function renderOrderSummary() {
     link.addEventListener('click' , () => {
       const productId = link.dataset.productId;
       removeFromCart(productId);
-      updateCartQuantity();
 
+      renderCheckoutHeader();
       renderOrderSummary();
       renderPaymentSummary();
     });
@@ -135,10 +136,11 @@ export function renderOrderSummary() {
       const inputElement = document.querySelector(`.js-quantity-input-${productId}`);
       if(Number(inputElement.value) <= 0 || Number(inputElement.value) >= 1000) return; 
       updateQuantity(productId,Number(inputElement.value));
-      updateCartQuantity();
 
       const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
       quantityLabel.innerHTML = Number(inputElement.value);
+
+      renderCheckoutHeader();
       renderPaymentSummary();
     });
   });
@@ -152,10 +154,10 @@ export function renderOrderSummary() {
 
         if(Number(save.value) <= 0 || Number(save.value) >= 1000) return; 
         updateQuantity(productId,Number(save.value));
-        updateCartQuantity();
 
         const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
         quantityLabel.innerHTML = Number(save.value);
+        renderCheckoutHeader();
         renderPaymentSummary();
       }
     });
@@ -174,12 +176,4 @@ export function renderOrderSummary() {
 
 
 
-}
-
-
-
-function updateCartQuantity () {
-  let quantity = calculateCartQuantity();
-
-  document.querySelector('.js-checkout-header-middle-section').innerHTML = `Checkout (<a class="return-to-home-link" href="amazon.html">${quantity} items</a>)`;
 }
