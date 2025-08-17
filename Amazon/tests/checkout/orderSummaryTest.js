@@ -63,8 +63,23 @@ describe('test suite: renderOrderSummary' ,() =>
 
   });
 
+  it('updates the delivery option', () => 
+  {
+    const dev3 = document.querySelector(`.js-delivery-option-${productId1}-3`);
+    dev3.click();
+    const input3 = document.querySelector(`.js-delivery-option-input-${productId1}-3`);
+
+    expect(input3.checked).toEqual(true);
+    expect(cart.length).toEqual(2);
+    expect(cart[0].productId).toEqual(productId1);
+    expect(cart[0].deliveryOptionId).toEqual('3');
+    expect(document.querySelector('.js-payment-summary-shipping').innerText).toEqual('$14.98');
+    expect(document.querySelector('.js-payment-summary-total').innerText).toEqual('$63.50');
+
+  });
+
   afterEach(() => 
   {
-    document.querySelector('.js-test-container').innerHTML = '';
+    //document.querySelector('.js-test-container').innerHTML = '';
   }); 
 }); 
