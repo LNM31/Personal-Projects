@@ -27,7 +27,6 @@ export function renderOrderSummary()
 
     const dateString = calculateDeliveryDate(deliveryOption);
 
-
     cartSummaryHTML += 
     /*html*/
     `
