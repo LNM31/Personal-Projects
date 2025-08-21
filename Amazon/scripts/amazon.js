@@ -9,7 +9,31 @@ function renderProductsGrid()
   updateCartQuantity();
 
   let productsHTML = '';
-  products.forEach((product) => {
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get('search');
+
+  let filteredProducts = products;
+
+  if(search)
+  {
+    filteredProducts=products.filter((product) => 
+    {
+      //return product.name.includes(search);
+      let matchKeyword = false;
+
+      product.keywords.forEach((keyword) => 
+      {
+        if(keyword.toLowerCase().includes(search.toLowerCase()))
+        {
+          matchKeyword = true;
+        }
+      });
+      
+      return matchKeyword || product.name.toLowerCase().includes(search.toLowerCase());
+    });
+  }    
+
+  filteredProducts.forEach((product) => {
     productsHTML += `
       <div class="product-container">
         <div class="product-image-container">
@@ -83,6 +107,20 @@ function renderProductsGrid()
     })
   });
 
+  const searchBar =  document.querySelector('.js-search-bar');
+  const searchButton =  document.querySelector('.js-search-button');
+  searchButton.addEventListener('click', () => 
+  {
+    window.location.href = `amazon.html?search=${searchBar.value}`;
+  });
+  searchBar.addEventListener('keydown', event => 
+  {
+    if(event.key === 'Enter')
+    {
+      window.location.href = `amazon.html?search=${searchBar.value}`;
+    }
+  })
+
   function addedButton(productId) {
     const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
     addedMessage.classList.add('add-to-cart-visible');
@@ -95,4 +133,6 @@ function renderProductsGrid()
       addedMessage.classList.remove('add-to-cart-visible');
     },2000);
   }
+
+
 }
