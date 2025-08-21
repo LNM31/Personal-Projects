@@ -41,7 +41,10 @@ async function loadPage()
     `
   });
 
-  document.querySelector('.js-orders-grid').innerHTML = html;
+  const container =  document.querySelector('.js-orders-grid');
+  if(!container) return;
+  container.innerHTML = html;
+  
 
   document.querySelectorAll('.js-buy-again').forEach((button) => 
   {
@@ -103,6 +106,18 @@ function productsListHTML(order)
     
   });
   return productsList;
+}
+
+export function getOrder(orderId) {
+  let matchingOrder;
+
+  orders.forEach((order) => {
+    if (order.id === orderId) {
+      matchingOrder = order;
+    }
+  });
+
+  return matchingOrder;
 }
 
 loadPage();
