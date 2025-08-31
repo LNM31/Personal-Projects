@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route index element={<HomePage />} />
+        <Route index element={<HomePage />} /> {/* index <=> path="/" */}
         <Route path="checkout" element={<CheckoutPage />} />
         <Route path="orders" element={<OrdersPage />} />
       </Routes>
