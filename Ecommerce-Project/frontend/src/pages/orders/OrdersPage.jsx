@@ -13,12 +13,13 @@ export function OrdersPage({ cart })
 
   useEffect(() => 
   {
-    axios.get('/api/orders?expand=products')
-      .then((response) => 
-      {
-        //console.log(response.data);
-        setOrders(response.data);
-      });
+    const getOrdersData = async () => 
+    {
+      const response = await axios.get('/api/orders?expand=products');
+      setOrders(response.data);
+    }
+
+    getOrdersData();
   }, []);
 
   return (
