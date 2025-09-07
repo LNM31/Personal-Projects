@@ -29,7 +29,9 @@ export function Product({ product, loadCart })
   }
 
   return (
-    <div className="product-container"> {/* important to have a key for React */}
+    <div className="product-container"
+      data-testId="product-container"
+    > {/* important to have a key for React */}
       <div className="product-image-container">
         <img className="product-image"
           data-testid="product-image"
