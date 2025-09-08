@@ -57,6 +57,7 @@ export function Product({ product, loadCart })
 
       <div className="product-quantity-container">
         <select
+          data-testId="product-quantity-container"
           value={quantity}
           onChange={selectQuantity}
         >
