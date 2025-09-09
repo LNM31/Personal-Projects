@@ -1,4 +1,5 @@
 import axios from 'axios'
+import type { AxiosInstance } from 'axios';
 import { Routes, Route } from 'react-router'
 import { useState, useEffect } from 'react'
 import { HomePage } from './pages/home/HomePage.jsx'
@@ -8,8 +9,13 @@ import { TrackingPage } from './pages/tracking/TrackingPage.jsx'
 import { NotFoundPage } from './pages/not-found/NotFoundPage.jsx'
 import './App.css'
 
-window.axios = axios;
+declare global {
+  interface Window {
+    axios: AxiosInstance;
+  }
+}
 
+window.axios = axios;
 
 function App() {
   const [cart, setCart] = useState([]);
