@@ -35,6 +35,19 @@
   display: none;
 }
 
+.checkout-header-container {
+  color: black;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  text-decoration: none;
+}
+
+.checkout-header-container .home-text {
+  margin-left: 8px;
+  font-weight: bold;
+}
+
 /* @media is used to create responsive design (making the
    website look good on any screen size). This @media
    means when the screen width is 575px or less, different

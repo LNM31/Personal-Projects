@@ -2,8 +2,7 @@ import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import { useState, } from 'react';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
-import LogoWhite from '../assets/images/logo-white.png';
-import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
+import HomeIconWhite from '../assets/images/home-logo-white.png';
 import './Header.css'
 
 type HeaderProps = {
@@ -32,6 +31,11 @@ export function Header({ cart }: HeaderProps) {
   {
     setSearch(event.target.value);
   }
+  function enterSearchProducts(event) 
+  {
+    if(event.key === 'Enter')
+      searchProducts();
+  }
 
   function searchProducts()
   {
@@ -42,11 +46,10 @@ export function Header({ cart }: HeaderProps) {
     <>
       <div className="header">
         <div className="left-section">
-          <NavLink to="/" className="header-link"> {/* should use Link(component) instead of a(element), NavLink goes to another page without reloading */}
-            <img className="logo"
-              src={LogoWhite} />
-            <img className="mobile-logo"
-              src={MobileLogoWhite} />
+          <NavLink to="/" className="header-link home-container"> {/* should use Link(component) instead of a(element), NavLink goes to another page without reloading */}
+            <img className="logo home-icon"
+              src={HomeIconWhite} />
+            <div className="home-text">Home</div>
           </NavLink>
         </div>
 
@@ -56,6 +59,7 @@ export function Header({ cart }: HeaderProps) {
             type="text" placeholder="Search" 
             value={search}
             onChange={updateSearchInput}
+            onKeyDown={enterSearchProducts}
           />
 
           <button className="search-button"

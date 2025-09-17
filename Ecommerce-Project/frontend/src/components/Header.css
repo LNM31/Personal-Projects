@@ -43,6 +43,18 @@
   margin-top: 1px;
 }
 
+.header .home-container {
+  color: white;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.header .home-text {
+  font-weight: bold;
+  margin-left: 8px;
+}
+
 .header .mobile-logo {
   display: none;
 }
